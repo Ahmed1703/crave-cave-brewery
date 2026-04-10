@@ -61,9 +61,9 @@ function Panel({ beer }: { beer: Beer }) {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <div className="relative cursor-pointer" style={{ flex: "1 1 0%" }}
+    <div className="relative cursor-pointer"
       onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-      <div className="relative h-[520px] overflow-hidden"
+      <div className="relative h-[280px] sm:h-[350px] lg:h-[520px] overflow-hidden"
         style={{ boxShadow: "0 4px 30px rgba(0,0,0,0.4)" }}>
         {/* Art */}
         <Image src={beer.bg} alt={beer.name} fill
@@ -129,8 +129,7 @@ export default function BeerPanels() {
       {/* Panels */}
       <motion.div initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className="flex gap-[2px] px-0"
-        style={{ scrollbarWidth: "none" }}>
+        className="grid grid-cols-2 gap-[2px] lg:grid-cols-6 px-0">
         {beers.map(beer => <Panel key={beer.name} beer={beer} />)}
       </motion.div>
 

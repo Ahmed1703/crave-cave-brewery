@@ -29,15 +29,15 @@ export default function BrewingSection() {
           className="relative">
 
           {/* Top row — closer together, hugging the glass */}
-          <div className="flex justify-between gap-8 mb-14 max-w-[820px] mx-auto">
-            <div className="w-[38%] text-right">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-14 max-w-[820px] mx-auto">
+            <div className="sm:text-right">
               <h3 className="font-display text-2xl text-[#5c4a32] mb-3">Vann</h3>
               <p className="text-[#1a1410]/40 text-sm leading-[1.9]">
                 Rent fjellvann fra Nordre Averøy Vannverk. Vannkvaliteten fra Averøy gir en unik
                 mineralbalanse som fremhever smakene i hver eneste brygd.
               </p>
             </div>
-            <div className="w-[38%] text-left">
+            <div className="text-left">
               <h3 className="font-display text-2xl text-[#5c4a32] mb-3">Malt</h3>
               <p className="text-[#1a1410]/40 text-sm leading-[1.9]">
                 Pilsner 2Row, Marris Otter, Caramel/Crystal, Cara Gold og umaltet hvete.
@@ -47,15 +47,15 @@ export default function BrewingSection() {
           </div>
 
           {/* Bottom row — wider apart, around the glass body */}
-          <div className="flex justify-between gap-8 max-w-[1100px] mx-auto">
-            <div className="w-[35%] text-right">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-[1100px] mx-auto">
+            <div className="sm:text-right">
               <h3 className="font-display text-2xl text-[#5c4a32] mb-3">Humle</h3>
               <p className="text-[#1a1410]/40 text-sm leading-[1.9]">
                 Chinook, Cascade, Citra, Saaz og Tørrhumlet Citra/Huell Melon. Nøye
                 utvalgt for bitterhet, aroma og balanse.
               </p>
             </div>
-            <div className="w-[35%] text-left">
+            <div className="text-left">
               <h3 className="font-display text-2xl text-[#5c4a32] mb-3">Gjær</h3>
               <p className="text-[#1a1410]/40 text-sm leading-[1.9]">
                 Safale US-05, Safale 34/70, Lalvin D-47 og Philly Sour. Den usynlige

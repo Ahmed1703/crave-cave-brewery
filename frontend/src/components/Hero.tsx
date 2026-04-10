@@ -4,20 +4,20 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="relative h-screen bg-[#111010] flex">
+    <section className="relative min-h-screen bg-[#111010] flex flex-col md:flex-row">
       {/* Left — photo */}
-      <div className="relative w-1/2 h-full flex-shrink-0">
+      <div className="relative w-full md:w-1/2 h-[50vh] md:h-auto md:min-h-screen flex-shrink-0">
         <Image
           src="/images/3EE409EF-9993-4277-BC32-AA9138B54646-701-00001E1448CE9F42 (1).jpg"
-          alt="Crave Cave Brewery" fill sizes="50vw" quality={100} unoptimized
+          alt="Crave Cave Brewery" fill sizes="(max-width: 768px) 100vw, 50vw" quality={100} unoptimized
           className="object-cover" priority />
         <div className="absolute inset-0" style={{ boxShadow: "inset 0 0 200px 80px rgba(17,16,16,0.85)" }} />
       </div>
 
       {/* Right — content */}
-      <div className="w-1/2 h-full flex flex-col justify-center px-10 lg:px-20 relative">
+      <div className="w-full md:w-1/2 flex flex-col justify-center px-8 py-16 md:py-0 md:px-10 lg:px-20 relative">
         {/* Decorative ornament top-right */}
-        <div className="absolute top-32 right-16 opacity-[0.06]">
+        <div className="absolute top-32 right-16 opacity-[0.06] hidden md:block">
           <Image src="/images/crave cave icon.png" alt="" width={200} height={200}
             className="w-[180px] h-auto" />
         </div>
@@ -26,7 +26,7 @@ export default function Hero() {
           Norges minste bryggeri
         </p>
 
-        <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] text-[#e8dcc8] leading-[0.92] mb-6">
+        <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] text-[#e8dcc8] leading-[0.92] mb-6">
           Brygget<br/>i Hulen
         </h1>
 
@@ -37,7 +37,7 @@ export default function Hero() {
           <div className="h-px w-12 bg-[#c9a96e]/30" />
         </div>
 
-        <p className="text-[#e8dcc8]/30 text-lg max-w-[400px] mb-12 leading-[1.8]">
+        <p className="text-[#e8dcc8]/30 text-base md:text-lg max-w-[400px] mb-12 leading-[1.8]">
           Håndbrygget øl fra Averøy — inspirert av eventyr, monstre
           og den ville naturen langs Norskekysten.
         </p>
@@ -48,7 +48,7 @@ export default function Hero() {
         </a>
 
         {/* Bottom */}
-        <div className="absolute bottom-10 left-10 lg:left-20 right-10 lg:right-20 flex items-center justify-between">
+        <div className="mt-16 md:mt-0 md:absolute md:bottom-10 md:left-10 lg:left-20 md:right-10 lg:right-20 flex items-center justify-between">
           <div className="flex items-center gap-3 text-[#c9a96e]/20 text-[9px] uppercase tracking-[0.4em]">
             <div className="w-px h-8 bg-[#c9a96e]/15" />
             <span style={{ writingMode: "vertical-rl" }}>Scroll</span>

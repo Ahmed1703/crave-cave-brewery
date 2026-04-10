@@ -111,8 +111,8 @@ export default function Navbar() {
         opacity: hiding ? 0 : 1,
       }}
     >
-      <div className="max-w-[1400px] mx-auto px-8 flex items-center justify-between h-20">
-        <a href="/">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-8 flex items-center justify-between h-16 md:h-20">
+        <a href="/" className="relative z-[60] flex-shrink-0">
           <Image
             src="/images/logo.png"
             alt="Crave Cave Brewery"
@@ -120,7 +120,7 @@ export default function Navbar() {
             height={100}
             priority
             className={`w-auto ${
-              pinned ? "h-[45px] mt-0" : "h-[85px] mt-3"
+              pinned ? "h-[35px] md:h-[45px] mt-0" : "h-[50px] md:h-[85px] mt-1 md:mt-3"
             }`}
             style={{ transition: "height 0.3s ease, margin-top 0.3s ease" }}
           />
@@ -154,47 +154,54 @@ export default function Navbar() {
         </div>
 
         {/* Mobile hamburger */}
-        <button onClick={() => setOpen(!open)} className="lg:hidden p-2" aria-label="Meny">
+        <button onClick={() => setOpen(!open)} className="lg:hidden p-2 relative z-[60]" aria-label="Meny">
           <motion.span animate={open ? { rotate: 45, y: 6 } : {}} className="block w-6 h-0.5 bg-[#e8dcc8] mb-1.5" />
           <motion.span animate={open ? { opacity: 0 } : {}} className="block w-6 h-0.5 bg-[#e8dcc8] mb-1.5" />
           <motion.span animate={open ? { rotate: -45, y: -6 } : {}} className="block w-6 h-0.5 bg-[#e8dcc8]" />
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu — fullscreen overlay */}
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ height: 0 }}
-            animate={{ height: "auto" }}
-            exit={{ height: 0 }}
-            className="lg:hidden overflow-hidden bg-[#111010]"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="lg:hidden fixed inset-0 z-50 bg-[#111010] flex flex-col justify-center items-center"
           >
-            <div className="px-8 py-8 flex flex-col gap-4">
-              {navItems.map((item) => (
-                <div key={item.label}>
+            <div className="flex flex-col items-center gap-6">
+              {navItems.map((item, i) => (
+                <motion.div
+                  key={item.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: i * 0.05 }}
+                  className="text-center"
+                >
                   <a
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="text-[#e8dcc8] text-xl font-display"
+                    className="text-[#e8dcc8] text-3xl font-display hover:text-[#c9a96e] transition-colors"
                   >
                     {item.label}
                   </a>
                   {item.children && (
-                    <div className="ml-4 mt-2 flex flex-col gap-2">
+                    <div className="mt-2 flex flex-col items-center gap-1.5">
                       {item.children.map((child) => (
                         <a
                           key={child.label}
                           href={child.href}
                           onClick={() => setOpen(false)}
-                          className="text-white/50 text-sm hover:text-[#c9a96e] transition-colors"
+                          className="text-white/40 text-sm hover:text-[#c9a96e] transition-colors"
                         >
                           {child.label}
                         </a>
                       ))}
                     </div>
                   )}
-                </div>
+                </motion.div>
               ))}
             </div>
           </motion.div>
