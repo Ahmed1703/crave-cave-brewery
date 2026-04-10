@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Permanent_Marker, Crimson_Pro } from "next/font/google";
 import "./globals.css";
+import { CartProvider } from "@/context/CartContext";
+import CartSidebar from "@/components/CartSidebar";
+import FloatingCart from "@/components/FloatingCart";
 
 const displayFont = Permanent_Marker({
   weight: "400",
@@ -28,7 +31,11 @@ export default function RootLayout({
     <html lang="no" className="scroll-smooth">
       <body className={`${displayFont.variable} ${bodyFont.variable} font-body antialiased`}>
         <div className="grain" />
-        {children}
+        <CartProvider>
+          {children}
+          <FloatingCart />
+          <CartSidebar />
+        </CartProvider>
       </body>
     </html>
   );
