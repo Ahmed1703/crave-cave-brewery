@@ -73,7 +73,6 @@ export default function Navbar() {
     const fn = () => {
       const shouldPin = window.scrollY > window.innerHeight - 80;
       if (wasPinned.current && !shouldPin) {
-        // Scrolling back into hero — slide out first
         setHiding(true);
         setTimeout(() => {
           setPinned(false);
@@ -88,6 +87,16 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", fn);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
   const handleEnter = (label: string) => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setActiveDropdown(label);
@@ -98,86 +107,88 @@ export default function Navbar() {
   };
 
   return (
-    <nav
-      className={`left-0 right-0 z-50 ${
-        pinned
-          ? "fixed bg-[#111010]/95 backdrop-blur-sm border-b border-[#c9a96e]/10"
-          : "absolute bg-transparent border-b border-transparent"
-      }`}
-      style={{
-        top: 0,
-        transition: "background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease",
-        transform: hiding ? "translateY(-100%)" : "translateY(0)",
-        opacity: hiding ? 0 : 1,
-      }}
-    >
-      <div className="max-w-[1400px] mx-auto px-6 md:px-8 flex items-center justify-between h-16 md:h-20">
-        <a href="/" className="relative z-[60] flex-shrink-0">
-          <Image
-            src="/images/logo.png"
-            alt="Crave Cave Brewery"
-            width={250}
-            height={100}
-            priority
-            className={`w-auto ${
-              pinned ? "h-[35px] md:h-[45px] mt-0" : "h-[50px] md:h-[85px] mt-1 md:mt-3"
-            }`}
-            style={{ transition: "height 0.3s ease, margin-top 0.3s ease" }}
-          />
-        </a>
+    <>
+      <nav
+        className={`left-0 right-0 z-50 ${
+          pinned
+            ? "fixed bg-[#111010]/95 backdrop-blur-sm border-b border-[#c9a96e]/10"
+            : "absolute bg-transparent border-b border-transparent"
+        }`}
+        style={{
+          top: 0,
+          transition: "background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease",
+          transform: hiding ? "translateY(-100%)" : "translateY(0)",
+          opacity: hiding ? 0 : 1,
+        }}
+      >
+        <div className="max-w-[1400px] mx-auto px-6 md:px-8 flex items-center justify-between h-16 md:h-20">
+          <a href="/" className="relative z-[70] flex-shrink-0">
+            <Image
+              src="/images/logo.png"
+              alt="Crave Cave Brewery"
+              width={250}
+              height={100}
+              priority
+              className={`w-auto ${
+                pinned ? "h-[35px] md:h-[45px] mt-0" : "h-[50px] md:h-[85px] mt-1 md:mt-3"
+              }`}
+              style={{ transition: "height 0.3s ease, margin-top 0.3s ease" }}
+            />
+          </a>
 
-        {/* Desktop nav */}
-        <div className="hidden lg:flex items-center gap-8">
-          {navItems.map((item) => (
-            <div
-              key={item.label}
-              className="relative"
-              onMouseEnter={() => item.children && handleEnter(item.label)}
-              onMouseLeave={() => item.children && handleLeave()}
-            >
-              <a
-                href={item.href}
-                className="nav-link text-white hover:text-[#c9a96e] text-[11px] uppercase tracking-[0.2em] transition-colors flex items-center gap-1"
+          {/* Desktop nav */}
+          <div className="hidden lg:flex items-center gap-8">
+            {navItems.map((item) => (
+              <div
+                key={item.label}
+                className="relative"
+                onMouseEnter={() => item.children && handleEnter(item.label)}
+                onMouseLeave={() => item.children && handleLeave()}
               >
-                {item.label}
+                <a
+                  href={item.href}
+                  className="nav-link text-white hover:text-[#c9a96e] text-[11px] uppercase tracking-[0.2em] transition-colors flex items-center gap-1"
+                >
+                  {item.label}
+                  {item.children && (
+                    <svg width="8" height="5" viewBox="0 0 8 5" className="mt-0.5 opacity-50">
+                      <path d="M0 0L4 5L8 0" fill="none" stroke="currentColor" strokeWidth="1.2" />
+                    </svg>
+                  )}
+                </a>
                 {item.children && (
-                  <svg width="8" height="5" viewBox="0 0 8 5" className="mt-0.5 opacity-50">
-                    <path d="M0 0L4 5L8 0" fill="none" stroke="currentColor" strokeWidth="1.2" />
-                  </svg>
+                  <Dropdown items={item.children} show={activeDropdown === item.label} />
                 )}
-              </a>
-              {item.children && (
-                <Dropdown items={item.children} show={activeDropdown === item.label} />
-              )}
-            </div>
-          ))}
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile hamburger */}
+          <button onClick={() => setOpen(!open)} className="lg:hidden p-2 relative z-[70]" aria-label="Meny">
+            <motion.span animate={open ? { rotate: 45, y: 6 } : {}} className="block w-6 h-0.5 bg-[#e8dcc8] mb-1.5" />
+            <motion.span animate={open ? { opacity: 0 } : {}} className="block w-6 h-0.5 bg-[#e8dcc8] mb-1.5" />
+            <motion.span animate={open ? { rotate: -45, y: -6 } : {}} className="block w-6 h-0.5 bg-[#e8dcc8]" />
+          </button>
         </div>
+      </nav>
 
-        {/* Mobile hamburger */}
-        <button onClick={() => setOpen(!open)} className="lg:hidden p-2 relative z-[60]" aria-label="Meny">
-          <motion.span animate={open ? { rotate: 45, y: 6 } : {}} className="block w-6 h-0.5 bg-[#e8dcc8] mb-1.5" />
-          <motion.span animate={open ? { opacity: 0 } : {}} className="block w-6 h-0.5 bg-[#e8dcc8] mb-1.5" />
-          <motion.span animate={open ? { rotate: -45, y: -6 } : {}} className="block w-6 h-0.5 bg-[#e8dcc8]" />
-        </button>
-      </div>
-
-      {/* Mobile menu — fullscreen overlay */}
+      {/* Mobile fullscreen menu — rendered outside nav, portal-style */}
       <AnimatePresence>
         {open && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="lg:hidden fixed inset-0 z-50 bg-[#111010] flex flex-col justify-center items-center"
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[60] bg-[#111010] lg:hidden"
           >
-            <div className="flex flex-col items-center gap-6">
+            <div className="flex flex-col justify-center items-center h-full gap-7">
               {navItems.map((item, i) => (
                 <motion.div
                   key={item.label}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: i * 0.05 }}
+                  transition={{ duration: 0.25, delay: i * 0.04 }}
                   className="text-center"
                 >
                   <a
@@ -187,26 +198,12 @@ export default function Navbar() {
                   >
                     {item.label}
                   </a>
-                  {item.children && (
-                    <div className="mt-2 flex flex-col items-center gap-1.5">
-                      {item.children.map((child) => (
-                        <a
-                          key={child.label}
-                          href={child.href}
-                          onClick={() => setOpen(false)}
-                          className="text-white/40 text-sm hover:text-[#c9a96e] transition-colors"
-                        >
-                          {child.label}
-                        </a>
-                      ))}
-                    </div>
-                  )}
                 </motion.div>
               ))}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </>
   );
 }

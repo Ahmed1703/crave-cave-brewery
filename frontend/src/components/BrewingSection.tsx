@@ -65,7 +65,7 @@ export default function BrewingSection() {
           </div>
 
           {/* Beer glass — centered, only top half visible, cut off at bottom */}
-          <div className="flex justify-center mt-[-60px] relative z-10">
+          <div className="flex justify-center mt-[20px] relative z-10">
             <div className="h-[350px] overflow-hidden">
               <Image
                 src="/images/Untitled (2).png"
