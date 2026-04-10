@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #111010;
+  --bg-warm: #171311;
+  --cream: #e8dcc8;
+  --gold: #c9a96e;
+  --gold-dim: #8a7444;
+  --brown: #2a2118;
+  --brown-light: #3d3024;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(201,169,110,0.3);
+  color: #fff;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--brown-light); border-radius: 3px; }
+
+/* Grain */
+.grain {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 9999; opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Ornamental divider */
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+.ornament::before,
+.ornament::after {
+  content: '';
+  height: 1px;
+  width: 80px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+}
+
+/* Nav */
+.nav-link { position: relative; }
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 50%; transform: translateX(-50%);
+  width: 0; height: 1px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+.nav-link:hover::after { width: 100%; }
+
+/* Liquid fill button */
+.liquid-btn::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 0%;
+  background: var(--gold);
+  transition: height 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 1;
+}
+.liquid-btn:hover::before {
+  height: 100%;
+}
+.liquid-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: -10%; right: -10%;
+  height: 0%;
+  background: var(--gold);
+  filter: blur(4px);
+  opacity: 0.4;
+  transition: height 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  z-index: 0;
+}
+.liquid-btn:hover::after {
+  height: 110%;
+}
+
+/* Decorative corner borders */
+.corner-frame {
+  position: relative;
+}
+.corner-frame::before,
+.corner-frame::after {
+  content: '';
+  position: absolute;
+  width: 40px; height: 40px;
+  border-color: var(--gold-dim);
+  border-style: solid;
+  border-width: 0;
+  opacity: 0.4;
+}
+.corner-frame::before {
+  top: -8px; left: -8px;
+  border-top-width: 1px; border-left-width: 1px;
+}
+.corner-frame::after {
+  bottom: -8px; right: -8px;
+  border-bottom-width: 1px; border-right-width: 1px;
+}
