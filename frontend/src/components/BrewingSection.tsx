@@ -28,16 +28,16 @@ export default function BrewingSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="relative">
 
-          {/* Top row — closer together, hugging the glass */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-14 max-w-[820px] mx-auto">
-            <div className="sm:text-right">
+          {/* Top row — stacks on mobile, hugs the glass on desktop */}
+          <div className="flex flex-col sm:flex-row justify-between gap-8 mb-14 max-w-[820px] mx-auto">
+            <div className="sm:w-[38%] sm:text-right">
               <h3 className="font-display text-2xl text-[#5c4a32] mb-3">Vann</h3>
               <p className="text-[#1a1410]/40 text-sm leading-[1.9]">
                 Rent fjellvann fra Nordre Averøy Vannverk. Vannkvaliteten fra Averøy gir en unik
                 mineralbalanse som fremhever smakene i hver eneste brygd.
               </p>
             </div>
-            <div className="text-left">
+            <div className="sm:w-[38%] text-left">
               <h3 className="font-display text-2xl text-[#5c4a32] mb-3">Malt</h3>
               <p className="text-[#1a1410]/40 text-sm leading-[1.9]">
                 Pilsner 2Row, Marris Otter, Caramel/Crystal, Cara Gold og umaltet hvete.
@@ -46,16 +46,16 @@ export default function BrewingSection() {
             </div>
           </div>
 
-          {/* Bottom row — wider apart, around the glass body */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-[1100px] mx-auto">
-            <div className="sm:text-right">
+          {/* Bottom row — stacks on mobile, wider apart on desktop */}
+          <div className="flex flex-col sm:flex-row justify-between gap-8 max-w-[1100px] mx-auto">
+            <div className="sm:w-[35%] sm:text-right">
               <h3 className="font-display text-2xl text-[#5c4a32] mb-3">Humle</h3>
               <p className="text-[#1a1410]/40 text-sm leading-[1.9]">
                 Chinook, Cascade, Citra, Saaz og Tørrhumlet Citra/Huell Melon. Nøye
                 utvalgt for bitterhet, aroma og balanse.
               </p>
             </div>
-            <div className="text-left">
+            <div className="sm:w-[35%] text-left">
               <h3 className="font-display text-2xl text-[#5c4a32] mb-3">Gjær</h3>
               <p className="text-[#1a1410]/40 text-sm leading-[1.9]">
                 Safale US-05, Safale 34/70, Lalvin D-47 og Philly Sour. Den usynlige
@@ -64,8 +64,8 @@ export default function BrewingSection() {
             </div>
           </div>
 
-          {/* Beer glass — centered, only top half visible, cut off at bottom */}
-          <div className="flex justify-center mt-[20px] relative z-10">
+          {/* Beer glass — centered, pulled up into text on desktop, spaced on mobile */}
+          <div className="flex justify-center mt-[20px] sm:mt-[-60px] relative z-10">
             <div className="h-[350px] overflow-hidden">
               <Image
                 src="/images/Untitled (2).png"
