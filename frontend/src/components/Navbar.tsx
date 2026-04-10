@@ -64,11 +64,26 @@ function Dropdown({ items, show }: { items: { label: string; href: string }[]; s
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [pinned, setPinned] = useState(false);
+  const [hiding, setHiding] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const wasPinned = useRef(false);
 
   useEffect(() => {
-    const fn = () => setPinned(window.scrollY > window.innerHeight - 80);
+    const fn = () => {
+      const shouldPin = window.scrollY > window.innerHeight - 80;
+      if (wasPinned.current && !shouldPin) {
+        // Scrolling back into hero — slide out first
+        setHiding(true);
+        setTimeout(() => {
+          setPinned(false);
+          setHiding(false);
+        }, 300);
+      } else if (shouldPin && !wasPinned.current) {
+        setPinned(true);
+      }
+      wasPinned.current = shouldPin;
+    };
     window.addEventListener("scroll", fn);
     return () => window.removeEventListener("scroll", fn);
   }, []);
@@ -89,7 +104,12 @@ export default function Navbar() {
           ? "fixed bg-[#111010]/95 backdrop-blur-sm border-b border-[#c9a96e]/10"
           : "absolute bg-transparent border-b border-transparent"
       }`}
-      style={{ top: 0, transition: "background-color 0.3s ease, border-color 0.3s ease" }}
+      style={{
+        top: 0,
+        transition: "background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease",
+        transform: hiding ? "translateY(-100%)" : "translateY(0)",
+        opacity: hiding ? 0 : 1,
+      }}
     >
       <div className="max-w-[1400px] mx-auto px-8 flex items-center justify-between h-20">
         <a href="/">
