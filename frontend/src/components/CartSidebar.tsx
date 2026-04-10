@@ -33,7 +33,7 @@ export default function CartSidebar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60]"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[90]"
             onClick={() => setCartOpen(false)}
           />
 
@@ -43,7 +43,7 @@ export default function CartSidebar() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
-            className="fixed top-0 right-0 bottom-0 w-full max-w-[440px] bg-[#141210] border-l border-[#c9a96e]/10 z-[70] flex flex-col"
+            className="fixed top-0 right-0 bottom-0 w-full max-w-[440px] bg-[#141210] border-l border-[#c9a96e]/10 z-[100] flex flex-col"
           >
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-5 border-b border-white/5">

@@ -109,16 +109,18 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className={`left-0 right-0 z-50 ${
+        className={`left-0 right-0 ${
+          open ? "z-[80]" : "z-50"
+        } ${
           pinned
             ? "fixed bg-[#111010]/95 backdrop-blur-sm border-b border-[#c9a96e]/10"
             : "absolute bg-transparent border-b border-transparent"
         }`}
         style={{
           top: 0,
-          transition: "background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease",
-          transform: hiding ? "translateY(-100%)" : "translateY(0)",
-          opacity: hiding ? 0 : 1,
+          transition: open ? "none" : "background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, opacity 0.3s ease",
+          transform: hiding && !open ? "translateY(-100%)" : "translateY(0)",
+          opacity: hiding && !open ? 0 : 1,
         }}
       >
         <div className="max-w-[1400px] mx-auto px-6 md:px-8 flex items-center justify-between h-16 md:h-20">
@@ -180,7 +182,7 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[60] bg-[#111010] lg:hidden"
+            className="fixed inset-0 z-[70] bg-[#111010] lg:hidden"
           >
             <div className="flex flex-col justify-center items-center h-full gap-7">
               {navItems.map((item, i) => (
