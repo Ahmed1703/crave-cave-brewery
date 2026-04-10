@@ -84,12 +84,12 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`left-0 right-0 z-50 transition-all duration-500 ${
+      className={`left-0 right-0 z-50 ${
         pinned
           ? "fixed bg-[#111010]/95 backdrop-blur-sm border-b border-[#c9a96e]/10"
-          : "absolute bg-transparent"
+          : "absolute bg-transparent border-b border-transparent"
       }`}
-      style={{ top: 0 }}
+      style={{ top: 0, transition: "background-color 0.3s ease, border-color 0.3s ease" }}
     >
       <div className="max-w-[1400px] mx-auto px-8 flex items-center justify-between h-20">
         <a href="/">
@@ -99,9 +99,10 @@ export default function Navbar() {
             width={250}
             height={100}
             priority
-            className={`w-auto transition-all duration-500 ${
+            className={`w-auto ${
               pinned ? "h-[45px] mt-0" : "h-[85px] mt-3"
             }`}
+            style={{ transition: "height 0.3s ease, margin-top 0.3s ease" }}
           />
         </a>
 
